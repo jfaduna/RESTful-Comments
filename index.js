@@ -30,6 +30,21 @@ app.get('/comments', (req, res) => {
     res.render('comments/index', { comments })
 })
 
+app.get('/comments/new', (req, res) => {
+    res.render('comments/new')
+})
+
+app.post('/comments', (req, res) => {
+    const { username, comment } = req.body;
+    comments.push({ username, comment })
+    res.redirect('/comments')
+})
+
+// GET /comments/:id
+// GET /comments/:id/edit
+// PATCH /comments/:id
+// DELETE /comments/:id
+
 app.listen(3000, () => {
     console.log('LISTENING ON PORT 3000')
 })
