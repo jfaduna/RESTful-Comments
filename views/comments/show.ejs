@@ -11,6 +11,8 @@
     <p style="margin:0; padding:0"><b>Comment:</b> <%= comment.comment %></p>
     <a href="/comments">Back to Index</a>
     <a href="/comments/<%= comment.id %>/edit">Edit Comment</a>
-
+    <form action="/comments/<%= comment.id %>?_method=DELETE" method="post">
+        <button>Delete</button>
+    </form>
 </body>
 </html>

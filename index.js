@@ -10,7 +10,7 @@ app.use(methodOverride('_method'))
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
 
-const comments = [
+let comments = [
     {
         id: uuid(),
         username: 'Todd',
@@ -47,21 +47,18 @@ app.post('/comments', (req, res) => {
     res.redirect('/comments')
 })
 
-// GET /comments/:id
 app.get('/comments/:id', (req, res) => {
     const { id } = req.params
     const comment = comments.find(comment => comment.id === id)
     res.render('comments/show', { comment })
 })
 
-// GET /comments/:id/edit
 app.get('/comments/:id/edit', (req, res) => {
     const { id } = req.params
     const comment = comments.find(comment => comment.id === id)
     res.render('comments/edit', { comment })
 })
 
-// PATCH /comments/:id
 app.patch('/comments/:id', (req, res) => {
     const { id } = req.params
     const newComment = req.body.comment
@@ -70,7 +67,11 @@ app.patch('/comments/:id', (req, res) => {
     res.redirect(`/comments`)
 })
 
-// DELETE /comments/:id
+app.delete('/comments/:id', (req, res) => {
+    const { id } = req.params
+    comments = comments.filter(comment => comment.id !== id)
+    res.redirect('/comments')
+})
 
 app.listen(3000, () => {
     console.log('LISTENING ON PORT 3000')
